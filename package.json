@@ -1,0 +1,37 @@
+{
+  "name": "testflg",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvgeniiTe/testFLG.git"
+  },
+  "author": "Evgenii Telnov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvgeniiTe/testFLG/issues"
+  },
+  "homepage": "https://github.com/EvgeniiTe/testFLG#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "next": "^9.5.5",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-inline-react-svg": "^1.1.1",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.5"
+  }
+}
