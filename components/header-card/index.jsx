@@ -2,9 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import Ring from "../../assets/Vector.svg";
 import Line from "../../assets/Line 3.svg";
-import ProfileImg from "../../assets/profile.svg";
+import { ImgInSqrContainer } from "../img-in-sqr-container";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,15 +14,15 @@ const useStyles = makeStyles((theme) => ({
     padding: 0
   },
   paper: {
-    padding: theme.spacing(1),
+    // padding: theme.spacing(1),
     textAlign: "center",
     color: "#FFF",
     backgroundColor: "transparent"
   },
-  radius: { borderRadius: "50%" },
+  image: { },
 }));
 
-export const HeaderCard = () => {
+export const HeaderCard = ({ profileName = "Иванова А." }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -34,7 +35,7 @@ export const HeaderCard = () => {
         <Grid
           container
           item
-          xs={1}
+          xs={6}
           direction="row"
           justify="center"
           alignItems="center"
@@ -51,14 +52,16 @@ export const HeaderCard = () => {
           </Grid>
           <Grid item xs={4}>
             <Paper className={classes.paper} elevation={0} square>
-              <ProfileImg className={classes.radius} />
+              <ImgInSqrContainer className={classes.image} imgName="ProfileImg" sideSize="40px" />
             </Paper>
           </Grid>
 
         </Grid>
-        <Grid item xs={1}>
-          <Paper className={classes.paper} elevation={0} square>Иванова А.</Paper>
-        </Grid>
+        <Hidden xsDown>
+          <Grid item xs={1}>
+            <Paper className={classes.paper} elevation={0} square>{profileName}</Paper>
+          </Grid>
+        </Hidden>
       </Grid>
     </div>
   );

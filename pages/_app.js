@@ -3,6 +3,15 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1365,
+      xl: 1920,
+    },
+  },
   overrides: {
     MuiCssBaseline: {
       "@global": {
@@ -13,7 +22,7 @@ const theme = createMuiTheme({
           boxSizing: "border-box",
         },
         body: {
-          fontFamily: "'Roboto', 'Times New Roman', sans-serif",
+          fontFamily: "'Open Sans', sans-serif",
           backgroundColor: "#fff"
         }
       },
