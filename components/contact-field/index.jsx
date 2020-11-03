@@ -11,7 +11,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ContactField = ({ id, imgName, label, placeholder, error = false, errorText }) => {
+export const ContactField = ({
+  id,
+  value,
+  imgName,
+  label,
+  placeholder,
+  error,
+  errorText,
+  onChange,
+  onFocus,
+  onBlur,
+}) => {
   const classes = useStyles();
 
   const helperText = error ? errorText : null;
@@ -34,9 +45,13 @@ export const ContactField = ({ id, imgName, label, placeholder, error = false, e
             id={id}
             label={label}
             placeholder={placeholder}
+            value={value}
             variant="outlined"
             error={error}
             helperText={helperText}
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </Grid>
       </Grid>

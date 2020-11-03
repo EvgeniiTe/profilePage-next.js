@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { ImgInSqrContainer } from "../img-in-sqr-container";
 import { StyledButton } from "../styled-button";
+import { ContactsChangeHandlerContext } from "../../helpers/contacts-change-handler-context";
 
 const useStyles = makeStyles((theme) => ({
   root: ({ display }) => ({
@@ -60,33 +62,60 @@ const useStyles = makeStyles((theme) => ({
 
 const ConfirmationForm = ({
   classConfirmationForm,
-  classMessage
+  classMessage,
+  currentContacts
 }) => {
   const message = "Сохранить изменения?";
+
+  const handlersForChangingContacts = useContext(ContactsChangeHandlerContext);
+  const confirmContacts = handlersForChangingContacts.handleConfirmContactsChanges;
+  const closeChangingView = handlersForChangingContacts.handleCloseChangeContacts;
+
+  const [changesSaved, setChangesSaved] = useState(false);
+
+  const confirmAndSave = (contacts) => {
+    const { name, email, tel } = contacts;
+    confirmContacts(name, email, tel);
+    setChangesSaved(true);
+    axios.post("/user", {
+      name,
+      email,
+      tel
+    })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("tel", tel);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  if (changesSaved) {
+    return (
+      <div className={classConfirmationForm}>
+        <p className={classMessage}>{message}</p>
+        <StyledButton text="Хорошо" theme="filled" size="small" onClick={closeChangingView} />
+      </div>
+    );
+  }
+
   return (
     <div className={classConfirmationForm}>
       <p className={classMessage}>{message}</p>
-      <StyledButton text="Сохранить" theme="filled" size="small" />
+      <StyledButton text="Сохранить" theme="filled" size="small" onClick={() => confirmAndSave(currentContacts)} />
       <StyledButton text="Не сохранять" size="small" />
-      {/* <StyledButton text="Хорошо" theme="filled" size="small" /> */}
     </div>
   );
 };
 
-export const PopupContainer = ({ open, close }) => {
-  const display = open ? "block" : "none";
+export const PopupContainer = ({ isOpen, close, currentContacts }) => {
+  const display = isOpen ? "block" : "none";
   const props = { display };
   const classes = useStyles(props);
 
-  const [openPopup, setOpenPopup] = useState(false);
-
-  const handleClickOpenPopup = () => {
-    setOpenPopup(true);
-  };
-
-  const handleClosePopup = () => {
-    setOpenPopup(false);
-  };
   return (
     <div className={classes.root}>
       <div className={classes.popupContainer}>
@@ -96,6 +125,7 @@ export const PopupContainer = ({ open, close }) => {
         <ConfirmationForm
           classConfirmationForm={classes.confirmationForm}
           classMessage={classes.message}
+          currentContacts={currentContacts}
         />
       </div>
     </div>

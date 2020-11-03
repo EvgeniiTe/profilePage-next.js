@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { Hidden } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { ImgInSqrContainer } from "../img-in-sqr-container";
+import { ProfileContactsContext } from "../../helpers/profile-contacts-context";
 
 const useStyles = makeStyles({
   root: {
@@ -25,8 +26,43 @@ const useStyles = makeStyles({
   image: { },
 });
 
-export const ProfileInfo = ({ imgName = "PenImg", buttonText = "РЕДАКТИРОВАТЬ" }) => {
+export const ProfileInfo = ({ startChanging, stopChanging, confirmed }) => {
   const classes = useStyles();
+  const { profileName } = useContext(ProfileContactsContext);
+
+  const stateButtonRender = (onClick, imgName = "PenImg", buttonText = "РЕДАКТИРОВАТЬ") => {
+    return (
+      <>
+        <Hidden xsDown>
+          <Grid item xs={7}>
+            <Paper className={classes.paper} elevation={0} square>{buttonText}</Paper>
+          </Grid>
+        </Hidden>
+        <Grid item xs={3} onClick={() => onClick()} style={{ cursor: "pointer" }}>
+          <Paper className={classes.paper} elevation={0} square>
+            <ImgInSqrContainer className={classes.image} imgName={imgName} sideSize="18px" />
+          </Paper>
+        </Grid>
+      </>
+    );
+  };
+
+  const stateButtonContainer = (confirmedAlready) => {
+    if (!confirmedAlready) {
+      return (
+        <>
+          {stateButtonRender(stopChanging, "CrossWhiteImg", "ЗАКРЫТЬ") }
+        </>
+      );
+    }
+
+    return (
+      <>
+        {stateButtonRender(startChanging, "PenImg", "РЕДАКТИРОВАТЬ") }
+      </>
+    );
+  };
+
   return (
     <div>
       <Grid
@@ -50,7 +86,7 @@ export const ProfileInfo = ({ imgName = "PenImg", buttonText = "РЕДАКТИР
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper} elevation={0} square>
-              Иванова Анна Михайловна
+              {profileName}
             </Paper>
           </Grid>
         </Grid>
@@ -62,16 +98,7 @@ export const ProfileInfo = ({ imgName = "PenImg", buttonText = "РЕДАКТИР
           justify="flex-end"
           alignItems="center"
         >
-          <Hidden xsDown>
-            <Grid item xs={7}>
-              <Paper className={classes.paper} elevation={0} square>{buttonText}</Paper>
-            </Grid>
-          </Hidden>
-          <Grid item xs={3}>
-            <Paper className={classes.paper} elevation={0} square>
-              <ImgInSqrContainer className={classes.image} imgName={imgName} sideSize="18px" />
-            </Paper>
-          </Grid>
+          {stateButtonContainer(confirmed)}
         </Grid>
       </Grid>
     </div>

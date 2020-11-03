@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ConfirmedContact } from "../confirmed-contact";
 import { ChangeContacts } from "../change-contacts";
+import { ProfileContactsContext } from "../../helpers/profile-contacts-context";
 
 const useStyles = makeStyles({
   root: {
@@ -16,15 +17,25 @@ const useStyles = makeStyles({
   },
 });
 
-export const ContactsContainer = () => {
+export const ContactsContainer = ({ confirmed }) => {
   const classes = useStyles();
+  const {
+    profileEmail,
+    profileTel
+  } = useContext(ProfileContactsContext);
+
+  if (!confirmed) {
+    return (
+      <div className={classes.root}>
+        <ChangeContacts />
+      </div>
+    );
+  }
+
   return (
-    // <div className={classes.root}>
-    //   <ConfirmedContact imgName="CommImg" contactText="Ivanova@mail.ru" borderBottom />
-    //   <ConfirmedContact imgName="PhoneImg" contactText="Укажите номер телефона" />
-    // </div>
     <div className={classes.root}>
-      <ChangeContacts />
+      <ConfirmedContact imgName="CommImg" contactText={profileEmail} borderBottom />
+      <ConfirmedContact imgName="PhoneImg" contactText={profileTel} />
     </div>
   );
 };
