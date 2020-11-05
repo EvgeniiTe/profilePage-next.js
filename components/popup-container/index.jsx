@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
 const ConfirmationForm = ({
   classConfirmationForm,
   classMessage,
-  currentContacts
+  currentContacts,
+  close
 }) => {
   const message = "Сохранить изменения?";
 
@@ -106,7 +107,7 @@ const ConfirmationForm = ({
     <div className={classConfirmationForm}>
       <p className={classMessage}>{message}</p>
       <StyledButton text="Сохранить" theme="filled" size="small" onClick={() => confirmAndSave(currentContacts)} />
-      <StyledButton text="Не сохранять" size="small" />
+      <StyledButton text="Не сохранять" size="small" onClick={() => close()} />
     </div>
   );
 };
@@ -126,6 +127,7 @@ export const PopupContainer = ({ isOpen, close, currentContacts }) => {
           classConfirmationForm={classes.confirmationForm}
           classMessage={classes.message}
           currentContacts={currentContacts}
+          close={close}
         />
       </div>
     </div>

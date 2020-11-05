@@ -10,7 +10,8 @@ import PenImage from "../../assets/pen.svg";
 const useStyles = makeStyles({
   root: ({ sideSize }) => ({
     width: sideSize,
-    height: sideSize
+    height: sideSize,
+    verticalAlign: "top"
   })
 });
 
