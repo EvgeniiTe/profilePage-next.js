@@ -124,7 +124,7 @@ export const ChangeContacts = () => {
     const value = currentContacts[id];
     const error = currentContactsError[id];
     return (
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={4} key={id}>
         <ContactField
           id={id}
           value={value}

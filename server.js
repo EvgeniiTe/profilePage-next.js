@@ -14,9 +14,7 @@ app.prepare().then(() => {
 
   server.post("/user", async (req, res) => {
     const { name, email, tel } = req.body;
-    console.log("work");
     try {
-      console.log("work2");
       const response = await axios.post(
         "http://jsonplaceholder.typicode.com/posts",
         {
@@ -31,8 +29,7 @@ app.prepare().then(() => {
           }
         }
       );
-      console.log(response.statusText);
-      if (response.statusText !== "OK") {
+      if (response.statusText !== "Created") {
         res.send("sorry...");
         return;
       }
@@ -46,8 +43,8 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(8080, (err) => {
+  server.listen(3000, (err) => {
     if (err) throw err;
-    console.log("> Read on http://localhost:8080");
+    console.log("> Read on http://localhost:3000");
   });
 });
