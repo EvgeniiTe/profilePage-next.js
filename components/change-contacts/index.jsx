@@ -12,30 +12,50 @@ const dataForFields = [
     imgName: "NameImg",
     label: "Фамилия и имя",
     placeholder: "Укажите ваши фамилию и имя",
-    errorText: "Вы неверно указали имя"
+    errorText: "Вы неверно указали имя",
   },
   {
     id: "email",
     imgName: "CommImg",
     label: "E-mail",
     placeholder: "Ivanova@mail.ru",
-    errorText: "Вы неверно указали почту"
+    errorText: "Вы неверно указали почту",
   },
   {
     id: "tel",
     imgName: "PhoneImg",
     label: "Номер телефона",
     placeholder: "Укажите номер телефона",
-    errorText: "Вы неверно указали номер"
+    errorText: "Вы неверно указали номер",
   }
 ];
 
 const useStyles = makeStyles((theme) => ({
   root: { flexGrow: 1 },
   formControl: {
-    // margin: theme.spacing(1),
-    width: "100%"
+    margin: "auto",
+    marginTop: theme.spacing(3.25),
+    width: "100%",
+    marginBottom: theme.spacing(5.5),
+
+    [theme.breakpoints.down("sm")]: { marginBottom: theme.spacing(2.125) },
   },
+  fieldStyle: {
+    borderRight: "1px solid #CAE7FE",
+    "&:last-child": { borderRight: "none" },
+
+    [theme.breakpoints.down("sm")]: {
+      borderRight: "none",
+      padding: theme.spacing(2.875),
+      paddingTop: "0",
+      paddingBottom: theme.spacing(4.875),
+      "&:last-child": { paddingBottom: "0" },
+    },
+  },
+  allFields: {
+    marginBottom: theme.spacing(3.625),
+    [theme.breakpoints.down("sm")]: { marginBottom: theme.spacing(3.25) },
+  }
 }));
 
 export const ChangeContacts = () => {
@@ -124,7 +144,7 @@ export const ChangeContacts = () => {
     const value = currentContacts[id];
     const error = currentContactsError[id];
     return (
-      <Grid item xs={12} md={4} key={id}>
+      <Grid item xs={12} md={4} key={id} className={classes.fieldStyle}>
         <ContactField
           id={id}
           value={value}
@@ -146,9 +166,7 @@ export const ChangeContacts = () => {
       <FormControl className={classes.formControl}>
         <Grid
           container
-          direction="row"
-          justify="space-around"
-          alignItems="flex-start"
+          className={classes.allFields}
         >
           {ContactFieldsMap}
         </Grid>

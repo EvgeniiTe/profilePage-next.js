@@ -48,7 +48,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "0",
     color: "rgba(49, 49, 49, 0.7)",
     fontSize: "24px",
-    fontWeight: "600"
+    fontWeight: "600",
+    textAlign: "center"
+
   },
   confirmationForm: {
     margin: "69px 0 0 0",
@@ -73,11 +75,10 @@ const ConfirmationForm = ({
   const closeChangingView = handlersForChangingContacts.handleCloseChangeContacts;
 
   const [changesSaved, setChangesSaved] = useState(false);
+  const [errorWhileSaving, setErrorWhileSaving] = useState(false);
 
   const confirmAndSave = (contacts) => {
     const { name, email, tel } = contacts;
-    confirmContacts(name, email, tel);
-    setChangesSaved(true);
     axios.post("/user", {
       name,
       email,
@@ -88,19 +89,36 @@ const ConfirmationForm = ({
         localStorage.setItem("name", name);
         localStorage.setItem("email", email);
         localStorage.setItem("tel", tel);
+        setChangesSaved(true);
+        confirmContacts(name, email, tel);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        setErrorWhileSaving(true);
+        if (err.response) {
+          console.log(err.message);
+        } else if (err.request) {
+          console.log(err.message);
+        } else {
+          console.log("что-то не так в коде");
+        }
       });
   };
 
-  if (changesSaved) {
+  const finalMessage = (messageText, buttonText) => {
     return (
       <div className={classConfirmationForm}>
-        <p className={classMessage}>{message}</p>
-        <StyledButton text="Хорошо" theme="filled" size="small" onClick={closeChangingView} />
+        <p className={classMessage}>{messageText}</p>
+        <StyledButton text={buttonText} theme="filled" size="small" onClick={closeChangingView} />
       </div>
     );
+  };
+
+  if (changesSaved) {
+    return finalMessage("Данные успешно сохранены", "Хорошо");
+  }
+
+  if (errorWhileSaving) {
+    return finalMessage("Упсс...ошибка, попробуйте позднее", "Хорошо");
   }
 
   return (

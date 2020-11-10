@@ -7,12 +7,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: 0,
-    padding: 0
+    paddingTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+
+    [theme.breakpoints.down("sm")]: { marginBottom: theme.spacing(1.25) },
   },
   paper: {
     textAlign: "center",
     color: "#FFF",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   }
 }));
 
@@ -26,10 +29,10 @@ export const PageInfo = () => {
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid item xs={6}>
+        <Grid item>
           <Paper className={classes.paper} elevation={0} square>ЛИЧНЫЙ ПРОФИЛЬ</Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item>
           <Paper className={classes.paper} elevation={0} square>Главная/Личный профиль</Paper>
         </Grid>
       </Grid>

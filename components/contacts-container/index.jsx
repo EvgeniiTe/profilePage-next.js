@@ -9,7 +9,6 @@ const useStyles = makeStyles({
     flexGrow: 1,
     margin: 0,
     padding: 0,
-    marginTop: "24px",
     backgroundColor: "#FFF",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.15)",
     borderRadius: "10px"

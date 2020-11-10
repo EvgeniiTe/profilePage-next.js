@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     margin: "auto",
     maxWidth: "1308px",
+
+    [theme.breakpoints.down("sm")]: {
+      paddingRight: theme.spacing(1.25),
+      paddingLeft: theme.spacing(1.25),
+    },
   }
 }));
 

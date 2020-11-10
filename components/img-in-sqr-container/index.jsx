@@ -7,16 +7,21 @@ import NameImage from "../../assets/profile2.svg";
 import CrossImage from "../../assets/cross.svg";
 import PenImage from "../../assets/pen.svg";
 
-const useStyles = makeStyles({
-  root: ({ sideSize }) => ({
-    width: sideSize,
-    height: sideSize,
-    verticalAlign: "top"
-  })
-});
+const useStyles = makeStyles((theme) => ({
+  root: ({ sideSizeLargeDisp, sideSizeSmallDisp }) => ({
+    width: sideSizeLargeDisp,
+    height: sideSizeLargeDisp,
+    verticalAlign: "middle",
 
-export const ImgInSqrContainer = ({ imgName, sideSize }) => {
-  const props = { sideSize };
+    [theme.breakpoints.down("sm")]: {
+      width: sideSizeSmallDisp,
+      height: sideSizeSmallDisp
+    },
+  })
+}));
+
+export const ImgInSqrContainer = ({ imgName, sideSizeLargeDisp, sideSizeSmallDisp }) => {
+  const props = { sideSizeLargeDisp, sideSizeSmallDisp };
   const classes = useStyles(props);
   switch (imgName) {
     case "ProfileImg":

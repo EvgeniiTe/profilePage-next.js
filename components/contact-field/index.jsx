@@ -7,7 +7,25 @@ import { ImgInSqrContainer } from "../img-in-sqr-container";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: "100%"
+    width: "100%",
+  },
+  contactField: {
+    height: "97px",
+    padding: theme.spacing(2.875),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(9.625),
+
+    [theme.breakpoints.down("sm")]: {
+      padding: "0",
+      borderRight: "none",
+      height: "auto",
+
+      "&:nth-child(1)": { paddingTop: "0" },
+    },
+  },
+  textField: {
+    minWidth: "254px",
+    height: "57px",
   },
 }));
 
@@ -32,15 +50,16 @@ export const ContactField = ({
       <Grid
         container
         direction="row"
-        justify="space-around"
-        alignItems="flex-start"
+        justify="space-between"
+        alignItems="center"
+        className={classes.contactField}
       >
         <Hidden xsDown>
-          <Grid item md={2} className={classes.contactImg}>
+          <Grid item className={classes.contactImg}>
             <ImgInSqrContainer className={classes.image} imgName={imgName} sideSize="30px" />
           </Grid>
         </Hidden>
-        <Grid item xs={12} md={10}>
+        <Grid item>
           <TextField
             id={id}
             label={label}
@@ -52,6 +71,7 @@ export const ContactField = ({
             onChange={onChange}
             onFocus={onFocus}
             onBlur={onBlur}
+            className={classes.textField}
           />
         </Grid>
       </Grid>

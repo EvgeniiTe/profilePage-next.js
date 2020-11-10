@@ -6,25 +6,61 @@ import Grid from "@material-ui/core/Grid";
 import { ImgInSqrContainer } from "../img-in-sqr-container";
 import { ProfileContactsContext } from "../../helpers/profile-contacts-context";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
+    marginBottom: theme.spacing(3),
     flexGrow: 1,
-    margin: 0,
-    padding: 0,
-    // backgroundColor: "#1A78C2",
     background: "linear-gradient(270deg, #1A78C2 0%, #1A78C2 101.06%)",
     borderRadius: "10px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.15)",
-    height: "128px"
+
+    [theme.breakpoints.down("sm")]: { marginBottom: theme.spacing(1.25) },
   },
-  paper: {
-    // padding: theme.spacing(1),
-    textAlign: "center",
+  profileImg: {
+    margin: theme.spacing(3),
+    marginLeft: theme.spacing(3.75),
+    marginRight: theme.spacing(4.25),
+    textAlign: "left",
+    backgroundColor: "transparent",
+
+    [theme.breakpoints.down("sm")]: {
+      margin: theme.spacing(2),
+      marginLeft: theme.spacing(1.25),
+      marginRight: theme.spacing(1.25),
+    },
+  },
+  profileName: {
+    textAlign: "left",
     color: "#FFF",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    fontWeight: "600",
+    fontSize: "30px",
+    lineHeight: "41px",
+
+    [theme.breakpoints.down("sm")]: { fontSize: "14px", lineHeight: "19px" },
+
+  },
+  buttonText: {
+    marginLeft: theme.spacing(3.75),
+    textAlign: "right",
+    backgroundColor: "transparent",
+    color: "#FFF",
+    fontWeight: "600",
+  },
+  buttonImage: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(3.5),
+    textAlign: "right",
+    backgroundColor: "transparent",
+    color: "#FFF",
+
+    [theme.breakpoints.down("sm")]: {
+      margin: "0",
+      marginRight: theme.spacing(1.5),
+    },
   },
   image: { },
-});
+}));
 
 export const ProfileInfo = ({ startChanging, stopChanging, confirmed }) => {
   const classes = useStyles();
@@ -34,13 +70,13 @@ export const ProfileInfo = ({ startChanging, stopChanging, confirmed }) => {
     return (
       <>
         <Hidden xsDown>
-          <Grid item xs={7}>
-            <Paper className={classes.paper} elevation={0} square>{buttonText}</Paper>
+          <Grid item md={7}>
+            <Paper className={classes.buttonText} elevation={0} square>{buttonText}</Paper>
           </Grid>
         </Hidden>
-        <Grid item xs={3} onClick={() => onClick()} style={{ cursor: "pointer" }}>
-          <Paper className={classes.paper} elevation={0} square>
-            <ImgInSqrContainer className={classes.image} imgName={imgName} sideSize="18px" />
+        <Grid item xs={12} md={2} onClick={() => onClick()} style={{ cursor: "pointer" }}>
+          <Paper className={classes.buttonImage} elevation={0} square>
+            <ImgInSqrContainer className={classes.image} imgName={imgName} />
           </Paper>
         </Grid>
       </>
@@ -74,26 +110,26 @@ export const ProfileInfo = ({ startChanging, stopChanging, confirmed }) => {
       >
         <Grid
           container
-          xs={6}
+          item
+          xs={11}
+          md={9}
           direction="row"
           justify="flex-start"
           alignItems="center"
         >
-          <Grid item xs={2}>
-            <Paper className={classes.paper} elevation={0} square>
-              <ImgInSqrContainer className={classes.image} imgName="ProfileImg" sideSize="80px" />
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper} elevation={0} square>
-              {profileName}
-            </Paper>
-          </Grid>
+          <Paper className={classes.profileImg} elevation={0} square>
+            <ImgInSqrContainer className={classes.image} imgName="ProfileImg" sideSizeLargeDisp="80px" sideSizeSmallDisp="40px" />
+          </Paper>
+          <Paper className={classes.profileName} elevation={0} square>
+            {profileName}
+          </Paper>
         </Grid>
 
         <Grid
           container
-          xs={3}
+          item
+          xs={1}
+          md={3}
           direction="row"
           justify="flex-end"
           alignItems="center"
